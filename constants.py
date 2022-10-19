@@ -1,0 +1,5 @@
+DEBUG=True
+PORT=80
+HOST='0.0.0.0'
+STATIC_FOLDER='static'
+TEMPLATE_FOLDER='templates'

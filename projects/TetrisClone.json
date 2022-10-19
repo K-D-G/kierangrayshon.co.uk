@@ -1,0 +1,6 @@
+{
+  "project_title": "Tetris Clone",
+  "language": "C++",
+  "link": "https://github.com/K-D-G/tetris-clone",
+  "description": "This is a small, basic tetris clone with no fancy features written in C++ using the SFML library. This was just a small fun few hrs project. Uses simple graphics rendering and object-oriented techniques with string manipultion to store data of maps etc. Below is the implementation for the tetris piece class"
+}

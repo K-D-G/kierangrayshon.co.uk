@@ -1,0 +1,84 @@
+
+/**
+ * Renderer2D::render
+ * Description-Batch renders 2D quads
+ *
+ * @param mvp-Model View Projection Matrix
+ * @param ts-delta time (time since last frame)
+*/
+void Renderer2D::render(glm::mat4 mvp, float ts){
+  //Binding all of the generic objects
+  //The vertex array which will contain all of the vertices and indices
+  //The index buffer which tells which order to render vertices,
+  //Constant in this case as we are rendering quads
+  glBindVertexArray(vertex_array);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer);
+
+  //Setup the shader with the texture slots
+  BasicShader::get()->bind();
+  BasicShader::get()->set_int_array("textures", samplers, MAX_TEXTURES);
+
+  //Important vectors for later
+  std::vector<Vertex> vertices;
+  std::vector<unsigned int> texture_ids;
+  std::vector<unsigned int>::iterator id_location;
+  unsigned int number_textures=1;
+  unsigned int opengl_texture_id=1;
+
+  vertices.reserve(ceil(geometry.size()*0.3)*4);
+
+
+  //Need a texture slot for a blank texture in case we
+  //are just rendering colour
+  texture_ids.push_back(blank_texture_id);
+  glActiveTexture(GL_TEXTURE0);
+  glBindTexture(GL_TEXTURE_2D, blank_texture_id);
+
+  //This loops through all of the quads we are going to render
+  for(int i=0; i<geometry.size(); i++){
+
+    //Gets the texture that is going to be rendered on each quad
+    //And makes sure it is stored in a texture slot only once
+    //And that no texture is represented multiple times
+    if(geometry[i]->texture_id==blank_texture_id){
+      opengl_texture_id=0;
+    }else{
+      id_location=std::find(texture_ids.begin(), texture_ids.end(), geometry[i]->texture_id);
+      if(id_location==texture_ids.end()){
+        texture_ids.push_back(geometry[i]->texture_id);
+        opengl_texture_id=number_textures++;
+        glActiveTexture(GL_TEXTURE0+opengl_texture_id);
+        glBindTexture(GL_TEXTURE_2D, geometry[i]->texture_id);
+      }else{
+        opengl_texture_id=*id_location;
+      }
+    }
+
+    //Set the texture slot needed and add all of the vertices to the array
+    for(int j=0; j<4; j++){
+      geometry[i]->vertices[j].texture_slot=opengl_texture_id;
+      vertices.push_back(geometry[i]->vertices[j]);
+    }
+
+    //Once we have filled the texture slots or have all of the geometry in a batch
+    //Time to render
+    if(number_textures+1==MAX_TEXTURES||i+1==geometry.size()){
+      //Bind the necessary buffers and copy the vertices over
+      glBindVertexArray(vertex_array);
+      glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
+      glBufferSubData(GL_ARRAY_BUFFER, 0, vertices.size()*sizeof(Vertex), vertices.data());
+
+      //Set the matrix that is responsible for the "camera"
+      //And where the objects are on the screen
+      BasicShader::get()->set_matrix("mvp", mvp);
+
+      //Render
+      glDrawElements(GL_TRIANGLES, 6*vertices.size()*0.25, GL_UNSIGNED_INT, nullptr);
+
+      //Clear vectors for next cycle
+      vertices.clear();
+      texture_ids.clear();
+      number_textures=1;
+    }
+  }
+}

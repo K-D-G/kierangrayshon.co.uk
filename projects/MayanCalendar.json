@@ -1,0 +1,6 @@
+{
+  "project_title": "Mayan Calendar",
+  "language": "C",
+  "link":"https://github.com/K-D-G/OlympiadChallenges",
+  "description": "The idea of this program was to challenge understanding of C, the objective of this program is to convert a Mayan Date to a Gregorian date (given the date is after Jan 2000). The way the code achieves this is by implementing a sort of division by repeated subtraction. We cannot do a division due to the subtraction not being constant due to edge cases such as leap years and non-constant month lengths. We also take advantage of 2 structs to use as data structures as it makes the most sense Problem from: <a href='https://www.olympiad.org.uk/papers/2004/bio/q1.html'>Olympiad</a>"
+}

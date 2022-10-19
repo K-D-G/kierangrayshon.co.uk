@@ -1,0 +1,109 @@
+  
+/*
+  Mayan Calendar
+  Description: Conversion between the Mayan Calendar and Gregorian Calendar
+  Author: Kieran Grayshon
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// https://www.mayaarchaeologist.co.uk/public-resources/maya-calendar-converter-long-count/
+struct Mayan{
+  int baktun;
+  int katun;
+  int tun;
+  int uinal;
+  int kin;
+};
+
+struct Date{
+  int year;
+  int month;
+  int day;
+  char* day_name;
+};
+
+/**
+ * mayan_to_gregorian:Converts Mayan date to Gregorian date
+ *
+ * @param: date as a pointer to a Mayan struct defined above
+ *
+*/
+struct Date mayan_to_gregorian(struct Mayan* date){
+  //Day names in this order due to offset as 1st Jan 2000 is a Saturday
+  const char day_names[7][3]={"sat", "sun", "mon", "tue", "wed", "thu", "fri"};
+  const char month_names[12][3]={"jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"};
+  int month_lengths[12]={31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+  const int jan_2000=1728000+136800+2160+300+2; //Number of kins in 1st Jan 2000
+
+  //Convert the Mayan date into days
+  int days=(date->baktun)*144000+(date->katun)*7200+(date->tun)*360+(date->uinal)*20+date->kin;
+  int difference=days-jan_2000; //Find number of days between the date and "anchor" date
+
+  //Get setup to store the result
+  struct Date result;
+
+  //Calculate the day by dividing my days in a week
+  result.day_name=malloc(3);
+  strncpy(result.day_name, day_names[difference%7], 3);
+
+  int year=0;
+  int month=0;
+  int day=0;
+
+  /*
+  Algorithm works by:
+  Take away from the number of days until a subtraction
+  makes the difference go negative
+  This is now the remainder and we move down to the next level
+  and repeat
+  */
+
+  int days_per_year=365;
+  while(1){
+    days_per_year=(year%4==0)?366:365;
+    if(difference-days_per_year<0){
+      break;
+    }
+    difference-=days_per_year;
+    year++;
+  }
+
+  int days_per_month;
+  if(year%4==0){month_lengths[1]=29;}
+  while(1){
+    days_per_month=month_lengths[month];
+    if(difference-days_per_month<0){
+      break;
+    }
+    difference-=days_per_month;
+    month++;
+  }
+  month++;
+  day=difference+1;
+
+  result.year=year+2000;
+  result.month=month;
+  result.day=day;
+
+  return result;
+}
+
+int main(){
+  //Setup the test date and run the program
+  //Print out the result
+  struct Mayan* test=malloc(sizeof(struct Mayan));
+  //Wednesday 12th Oct 2022
+  test->baktun=13;
+  test->katun=0;
+  test->tun=9;
+  test->uinal=17;
+  test->kin=2;
+
+  struct Date result=mayan_to_gregorian(test);
+  free(test);
+  printf("%s %i %i %i\n", result.day_name, result.day, result.month, result.year);
+  return 0;
+}

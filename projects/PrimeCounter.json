@@ -1,0 +1,6 @@
+{
+  "project_title": "Prime Counter",
+  "language": "C",
+  "link":"https://github.com/K-D-G/OlympiadChallenges",
+  "description": "The objective of this program is to calculate the amount of prime numbers up to a certain value. We could use a prime counting function however we are outputting the primes therefore that is not sufficient. We achieve this by looping through the values up to M (called i). Then loop using another counter j up to i/2 and if anyone of them is a factor we break and say it's not a prime.<br>Problem from:<a href='https://www.olympiad.org.uk/programs/bio1995-samples/bio95_sm.html'>Olympiad</a>"
+}

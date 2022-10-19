@@ -1,0 +1,6 @@
+{
+  "project_title": "SimpleOS",
+  "language": "C",
+  "link": "https://github.com/K-D-G/SimpleOS",
+  "description":"This is an up and coming project. The idea is to write a small operating system that does basic tasks with only a handful of drivers. I have written and Operating System in the past but that one got lost when my computer corrupted. The main reason for trying again is because it was fun to implement get arounds for some of the simple things we take for granted in day to day programming like malloc. I will focus on the network side and may even get it to host my website one day. Upon completion of this I am going to go and try robotics with using a Texas Instruments ARM Micro Processor"
+}

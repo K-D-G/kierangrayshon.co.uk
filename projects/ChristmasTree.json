@@ -1,0 +1,6 @@
+{
+  "project_title":"Christmas Tree",
+  "language": "C",
+  "link": "https://github.com/K-D-G/Christmas-Tree-2018",
+  "description": "This project was written in 2018 as I wanted to have a go at making a physical device with the arduino. The idea was to have a wooden tree with 25 LED's that flash different colours in a pattern. The code has been iterated on since then however it is lost due to computer corruption"
+}

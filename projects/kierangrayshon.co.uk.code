@@ -1,10 +1,9 @@
 from flask import Flask, render_template, send_from_directory
-from constants import*
 import markdown
 import os
 import json
 
-app=Flask(__name__, static_folder=STATIC_FOLDER, template_folder=TEMPLATE_FOLDER)
+app=Flask(__name__, static_folder='static', template_folder='templates')
 
 @app.route('/')
 def index():
@@ -41,4 +40,4 @@ def internal_error(e):
     return render_template('html/error_pages/500.html'), 500
 
 if __name__=='__main__':
-    app.run(debug=DEBUG, host=HOST, port=PORT)
+    app.run(debug=True, host='0.0.0.0', port=80)

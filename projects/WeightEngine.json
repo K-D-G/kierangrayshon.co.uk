@@ -1,0 +1,6 @@
+{
+  "project_title": "Weight Engine",
+  "language": "C++",
+  "link":"https://github.com/K-D-G/WeightEngine",
+  "description": "This was a game engine that I wrote a while ago, it has 2D rendering support with lights, text, textures, quads etc. Rendered using batch rendering. As well as coming support for other platforms such as Android, IOS. OpenGL was used as the idea was to get an understandinf of graphics by just understanding how things are rendered. Below is a snippet of code showing off the batch rendering"
+}

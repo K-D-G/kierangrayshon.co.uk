@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kieran Grayshon|Projects</title>
+  {% include 'html/includes/meta.html' %}
+</head>
+<body>
+  {% include 'html/includes/masthead.html' %}
+  {% include 'html/includes/navbar.html' %}
+
+  <div class="container h-100">
+    <div class="row h-25"></div>
+    <div class="row h-100 align-items-center">
+      <div class="col-12 text-center">
+        <h3>Projects</h3>
+      </div>
+    </div>
+  </div>
+
+  <div id="main" class="col-md-8 mx-auto col-20 p-20 w-50 text-left justify-content-left">
+    <h5>Below are some of the projects I have worked on and some up and coming ones as well...</h5>
+    <p>(It doesn't contain all as I didn't back the majority of projects to github so lost them when my hard drive corrupted)</p>
+    <br>
+    <p>
+      I would describe my experience as vast, as I have been programming for 10 years I have programmed in a variety of languages.
+      When I started off I learnt Java then progressed to Python then eventually to the more complex languages such as C++, C. I would
+      say my preferred language is C++ however I am very versatile and I am willing to learn whatever skill is necessary to complete the task
+      at hand; my goal at this point is to expand my knowledge as much as possible with languages, algorithms and techniques.
+      In the future I would like to progress into robotics and AI. AI is something which I am very much a beginner in I understand many different
+      techniques at a basic level such as neural networks, k-means clustering, algorithms in computer vision such as Viola Jones. Most importantly
+      I am enjoying researching Natural Language Processing (NLP)
+      Along side my AI learning I am trying to incorporate embedded systems and really low level C writing programs for ARM Cortex-M series architecture and hopefully their
+      microprocssors, well as circuit board design
+    </p>
+  </div>
+  {% for project_name in project_names %}
+  {% if (loop.index-1)%2==0 %}
+  <div class="row justify-content-center">
+    <div class="col-20">
+  {% else %}
+    <div class="col-22">
+  {% endif %}
+      <div class="card p-20" style="width: 18rem;">
+        <img class="card-img-top" src="static/images/project_images/{{project_name}}.png" alt="{{project_name}}" width="316" height="138">
+        <div class="card-body">
+          <h5 class="card-title">{{project_name}}</h5>
+          <a href="/projects/{{project_name}}" class="btn btn-primary">View</a>
+        </div>
+      </div>
+    </div>
+  {% if (loop.index)%2==0 %}
+  </div>
+  <br>
+  {% endif %}
+  {% endfor %}
+  </div>
+  <br>
+
+  {% include 'html/includes/footer.html' %}
+</body>
+</html>

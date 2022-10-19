@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kieran Grayshon|{{project_title}}</title>
+  {% include 'html/includes/meta.html' %}
+  {% include 'html/includes/syntax_highlighting.html' %}
+</head>
+<body>
+  {% include 'html/includes/masthead.html' %}
+  {% include 'html/includes/navbar.html' %}
+
+  <div class="container h-100">
+    <div class="row h-25"></div>
+    <div class="row h-100 align-items-center">
+      <div class="col-12 text-center">
+        <h3>{{project_title}}</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8 mx-auto col-20 p-20 w-50 text-left justify-content-left">
+      <p>
+        {{description|safe}}
+      </p>
+      <br>
+      <a href="{{link}}">To view more of the code on Github click here</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8 mx-auto col-20 p-20 w-50 justify-content-center">
+      <pre>
+        <code class="{{language}}">
+          {{code}}
+        </code>
+      </pre>
+    </div>
+  </div>
+
+  {% include 'html/includes/footer.html' %}
+</body>
+</html>
