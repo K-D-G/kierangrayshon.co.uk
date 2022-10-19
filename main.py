@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template, send_file
 from constants import*
 import markdown
 import os
@@ -27,6 +27,12 @@ def get_project(path):
     return render_template(f'html/project_template.html', name='projects',
                             project_title=data["project_title"], language=data["language"],
                             code=code, description=data["description"], link=data["link"])
+
+@app.route('/documents/<path:path>')
+def documents(path):
+    #directory=os.path.join(app.root_path, 'documents')
+    #return send_from_directory(directory=directory, filename=path)
+    return send_file(f'documents/{path}', as_attachment=True)
 
 @app.errorhandler(404)
 def not_found(e):
